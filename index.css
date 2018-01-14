@@ -1,0 +1,51 @@
+
+#wrapper {
+    min-width: 600px;
+    width: 80%;
+}
+
+.inputform, .outputform {
+    padding: 20px;
+}
+
+.inputform .instructions, .outputform, #notification {
+    font-size: 80%;
+}
+
+.tableform {
+    width: 100%;
+}
+
+.tableform td {
+    vertical-align: top;
+}
+
+.tableform textarea {
+    width: 100%;
+}
+
+.tableform .col1-2, .tableform .col2-2 {
+    width: 50%;
+}
+
+.tableform .col1-3, .tableform .col2-3, .tableform .col3-3 {
+    width: 33%;
+}
+
+#notification, .tableform .col2-2, .tableform .col2-3, .tableform .col3-3 {
+    padding-left: 20px;
+}
+
+.outputform {
+    padding-top: 0;
+}
+
+.outputform #output-field {
+    width: 100%;
+    border: 1px solid;
+    min-height: 40px;
+}
+
+label:hover, label:active, input:hover+label, input:active+label {
+    text-decoration: underline;
+}

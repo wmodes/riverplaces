@@ -1,0 +1,100 @@
+<html>
+<head>
+    <title>River Places Tool</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="https://apis.google.com/js/api.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBh9fv_G5BRRIZm0b3pUd-i7IgU4QGRg4&libraries=places"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="river-places.js"></script>
+</head>
+<body>
+<div id="wrapper">
+
+    <h1>River Places Tool</h1>
+    <p>This tool uses Google Places to take a list of cities and a list of keywords and return a list of related places in those cities.</p>
+
+    <div class="inputform">
+        <table class="tableform">
+        <tr>
+            <td class="col1-2">
+                <h2>List of locations</h2>
+                <textarea id="input-locations" rows="30" rows="100%" placeholder="troy, ny
+albany ny
+hudson ny"></textarea>
+                <span class="instructions">Separate each location on a new line. Order is unimportant. Duplicate places that are returned for more than one city will be removed. Specify unique locations; for instance using both city and state.</span>
+                </div>
+            </td>
+            <td class="col2-2">
+                <h2>List of keywords/phrases</h2>
+                <textarea id="input-keywords" rows="30" placeholder="art museum, 1
+art gallery,2
+museum,2"></textarea>
+                <span class="instructions">Separate each keyword/phrase on a new line. Priority will be assigned based on which keyword matched first. Optionally, add the priority after the keyword. Duplicate places will be removed.</span>
+            </td>
+        </tr>
+        </table>
+
+        <h2>Fields</h2>
+        <p class="instructions">Select the fields you wish to return.</p>
+        <table class="tableform">
+        <tr>
+            <td class="col1-3">
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="name" checked> Name
+                </label></p>
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="phone" checked> Phone number
+                </label></p>
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="website" checked> Website
+                </label></p>
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="priority" checked> Priority
+                </label></p>
+            </td>
+            <td class="col2-3">
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="city" checked> City
+                </label></p>
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="state" checked> State
+                </label></p>
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="address" checked> Address
+                </label></p>
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="location"> Location
+                </label></p>
+            </td>
+            <td class="col3-3">
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="notes"> Review notes
+                </label></p>
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="rating"> Rating
+                </label></p>
+                <p><label>
+                    <input type="checkbox" id="input-fields" value="types"> Types
+                </label></p>
+            </td>
+        </tr>
+        </table>
+        <br><input type="button" value="Search" onclick="submit()">
+    </div>
+
+    <div id="notification">
+    </div>
+
+    <div class="outputform">
+        <h2>Places Data</h2>
+        <p>Date returned from Google Places API in tab-separated values format. This should be possible to paste into Excel or Google docs. Note the header row which designates the fields.</p>
+        <textarea id=output-field></textarea>
+    </div>
+
+    <div id="attribution">
+    </div>
+
+</div>
+</body>
+
+
