@@ -66,7 +66,7 @@ function createCORSRequest(method, url) {
 //
 
 // create URL for location search
-// https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+knoxville+tn&key=AIzaSyC8dMs4JIuNzm9ChklR89p_FX0Sn4O3Yz4
+// https://maps.googleapis.com/maps/api/place/textsearch/json?query=knoxville+tn&key=AIzaSyC8dMs4JIuNzm9ChklR89p_FX0Sn4O3Yz4
 function getLocationUrl(location) {
     query = (location).replace(/\s/g, "+");
     return(APIURL + "/textsearch/json?query=" + query + "&key=" + APIKEY);
