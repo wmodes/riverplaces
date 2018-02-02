@@ -69,6 +69,7 @@ function createCORSRequest(method, url) {
 // https://maps.googleapis.com/maps/api/place/textsearch/json?query=knoxville+tn&key=AIzaSyC8dMs4JIuNzm9ChklR89p_FX0Sn4O3Yz4
 function getLocationUrl(location) {
     query = (location).replace(/\s/g, "+");
+    query = encodeURI(query);
     return(APIURL + "/textsearch/json?query=" + query + "&key=" + APIKEY);
 }
 
@@ -156,6 +157,7 @@ function getPlaceUrl(lat, lng, keyword) {
     var radq = "radius=" + defaultRad;
     var keywdq = "keyword=" + keyword.replace(/\s/g, "+");
     var query = locq + "&" + radq + "&" + keywdq + "&" + "&key=" + APIKEY;
+    query = encodeURI(query);
     return(APIURL + "/nearbysearch/json?" + query);
 }
 
@@ -180,6 +182,8 @@ function recordPlaceData(placeObj, priority) {
 function cleanString(str) {
     // remove punctuation
     str = str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ' ');
+    // covert to utf string
+    str = unescape(encodeURIComponent(str));
     // remove extra spaces
     str = str.replace(/\s+/g, ' ');
     // cast to lower case
@@ -306,6 +310,7 @@ function collectPlaceData() {
 function getDetailUrl(placeId) {
     var placeq = "placeid=" + placeId;
     var query = placeq + "&" + "&key=" + APIKEY;
+    query = encodeURI(query);
     return(APIURL + "/details/json?" + query);
 }
 
