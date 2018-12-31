@@ -93,26 +93,26 @@ function getLocationData(location, defFlag) {
     //console.log("URL", url);
     var xhr = createCORSRequest('GET', url);
     if (!xhr) {
-        console.log('CORS not supported');
+        alert('CORS not supported');
         error_flag = true;
         defFlag.resolve();
-        return false;
+        return;
     }
     xhr.onerror = function() {
-        console.log(xhr.onerror);
+        alert('Woops, there was an error making the request.');
         error_flag = true;
         defFlag.resolve();
     };
     xhr.onload = function() {
-        if (error_flag) { return false; }
+        if (error_flag) { return; }
         var text = xhr.responseText;
         obj = JSON.parse(text);
         //console.log("Orig object:", obj);
         if ('error_message' in obj) {
-            console.log(obj['error_message'])
+            alert(obj['error_message']);
             error_flag = true;
             defFlag.resolve();
-            return false;
+            return;
         }
         results = obj.results;
         //console.log("Results:", results);
@@ -120,10 +120,9 @@ function getLocationData(location, defFlag) {
             recordLocationData(value);
         })
         defFlag.resolve();
-        return true;
+        return;
     };
     xhr.send();
-    return true;
 }
 
 // use Google Places API to look up data for each location
@@ -138,10 +137,7 @@ function collectLocationData() {
         defFlags[i] =  $.Deferred();
         //console.log("Deferred:", i, defFlags[i]);
         console.log("Collecting location data:", locationList[i]);
-        if (! getLocationData(locationList[i], defFlags[i])) {
-            alert('Whoops, there was an error making the request.');
-            return false;
-        }
+        getLocationData(locationList[i], defFlags[i]);
     }
     return $.when.apply($, defFlags).done(function(){
         console.log("Finished collecting location data");
@@ -233,26 +229,26 @@ function getPlaceData(locationObj, keyword, priority, defFlag) {
     // console.log("URL", url);
     var xhr = createCORSRequest('GET', url);
     if (!xhr) {
-        console.log('CORS not supported');
+        alert('CORS not supported');
         error_flag = true;        
         defFlag.resolve();
-        return false;
+        return;
     }
     xhr.onerror = function() {
-        console.log(xhr.onerror);
+        alert('Woops, there was an error making the request.');
         error_flag = true;
         defFlag.resolve();
     };
     xhr.onload = function() {
-        if (error_flag) { return false; }
+        if (error_flag) { return; }
         var text = xhr.responseText;
         obj = JSON.parse(text);
         //console.log("Orig object:", obj);
         if ('error_message' in obj) {
-            console.log(obj['error_message']);
+            alert(obj['error_message']);
             error_flag = true;
             defFlag.resolve();
-            return false;
+            return;
         }
         results = obj.results;
         // console.log("Results:", results);
@@ -262,10 +258,9 @@ function getPlaceData(locationObj, keyword, priority, defFlag) {
             }
         });
         defFlag.resolve();
-        return true;
+        return;
     };
     xhr.send();
-    return true;
 }
 
 // use Google Places API to look up data for each location
@@ -293,11 +288,7 @@ function collectPlaceData() {
             // set deferred flag
             defFlags[defIndex] =  $.Deferred(); 
             // console.log("Collecting places:", keyword, "in", locationDataList[i].name);
-            if (! getPlaceData(locationDataList[i], keyword, 
-                    priority, defFlags[defIndex])) {
-                alert('Whoops, there was an error making the request.');
-                return false;
-            }
+            getPlaceData(locationDataList[i], keyword, priority, defFlags[defIndex]);
             defIndex++;
         }
     }
@@ -382,35 +373,34 @@ function getDetailData(placeId, placeObj, defFlag) {
     // console.log("URL", url);
     var xhr = createCORSRequest('GET', url);
     if (!xhr) {
-        console.log('CORS not supported');
+        alert('CORS not supported');
         error_flag = true;        
         defFlag.resolve();
-        return false;
+        return;
     }
     xhr.onerror = function() {
-        console.log(xhr.onerror)
+        alert('Woops, there was an error making the request.');
         error_flag = true;
         defFlag.resolve();
     };
     xhr.onload = function() {
-        if (error_flag) { return false; }
+        if (error_flag) { return; }
         var text = xhr.responseText;
         obj = JSON.parse(text);
         //console.log("Orig object:", obj);
         if ('error_message' in obj) {
-            console.log(obj['error_message']);
+            alert(obj['error_message']);
             error_flag = true;
             defFlag.resolve();
-            return false;
+            return;
         }
         result = obj.result;
         // console.log("Result:", result);
         outputOneResult(recordDetailData(result, placeObj.priority));
         defFlag.resolve();
-        return true;
+        return;
     };
     xhr.send();
-    return true;
 }
 
 // use Google Places API to look up data for each location
@@ -424,10 +414,7 @@ function collectDetailData() {
         // set deferred flags
         defFlags[defIndex] =  $.Deferred();
         // console.log("Collecting places:", keyword, "in", locationDataList[i].name);
-        if (! getDetailData(placeId, placeObj, defFlags[defIndex])) {
-            alert('Whoops, there was an error making the request.');
-            return false;
-        }
+        getDetailData(placeId, placeObj, defFlags[defIndex]);
         defIndex++;
     });
     return $.when.apply($, defFlags).done(function(){
