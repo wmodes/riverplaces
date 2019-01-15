@@ -144,7 +144,7 @@ function collectLocationData() {
         }
     }
     return $.when.apply($, defFlags).done(function(){
-        console.log("Finished collecting location data");
+        console.log("Finished collecting location data",locationDataList);
         $(notification + ' #location-data')
             .append(" done (" + locationDataList.length + " locations)");
     }).promise();
@@ -230,7 +230,7 @@ function getPlaceData(locationObj, keyword, priority, defFlag) {
     var lng = locationObj.lng;
     console.log("Searching:", keyword, "in", locationName.split(',')[0], "(p:"+priority+")");
     var url = getPlaceUrl(lat, lng, keyword);
-    // console.log("URL", url);
+    console.log("Place search URL", url);
     var xhr = createCORSRequest('GET', url);
     if (!xhr) {
         console.log('CORS not supported');
@@ -292,7 +292,7 @@ function collectPlaceData() {
         for (var i = 0; i < locationDataList.length; i++) {
             // set deferred flag
             defFlags[defIndex] =  $.Deferred(); 
-            // console.log("Collecting places:", keyword, "in", locationDataList[i].name);
+            console.log("Collecting places:", keyword, "in", locationDataList[i].name);
             if (! getPlaceData(locationDataList[i], keyword, 
                     priority, defFlags[defIndex])) {
                 alert('Whoops, there was an error making the request.');
@@ -302,7 +302,7 @@ function collectPlaceData() {
         }
     }
     return $.when.apply($, defFlags).done(function(){
-        console.log("Finished collecting place data");
+        console.log("Finished collecting place data",Object.keys(placesDataObj));
         $(notification + ' #place-data')
             .append(" done (" + Object.keys(placesDataObj).length + " places)");
     }).promise();
